@@ -54,6 +54,7 @@ module.exports = {
       bgGrey: '#fafafa',
       textGrey: '#8e8e8e',
       linkBlue: '#0095f6',
+      modalBlack: '#191919',
     },
   },
   plugins: [require('tailwind-scrollbar-hide')],

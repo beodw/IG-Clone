@@ -13,11 +13,13 @@ function FeedCard() {
     <div className="mb-4 flex flex-col border-[1px] border-solid border-grey bg-white shadow">
       <div className="row mb-2 flex items-center justify-between p-4">
         <div className="ml-2 flex items-center justify-between">
-          <div className="relative h-10 w-10 flex-col items-center justify-center overflow-clip rounded-full border-2 border-solid border-red p-[1.5px] hover:cursor-pointer">
+          <div className="relative h-[35px] w-[35px] flex-col items-center justify-center overflow-clip rounded-full border-2 border-solid border-red object-contain p-[1.5px] hover:cursor-pointer">
             <Image
+              className="rounded-full"
               priority
               src="https://wallpaperaccess.com/full/82965.jpg"
-              layout="fill"
+              width={124}
+              height={124}
             />
           </div>
           <p className="ml-2 w-[90px] max-w-prose truncate text-sm font-bold">
@@ -28,7 +30,7 @@ function FeedCard() {
           <MoreHorizontalIcon />
         </div>
       </div>
-      <div className="relative flex h-[711.11px] w-[400] items-center justify-center bg-teal object-contain">
+      <div className="relative flex h-[711.11px] w-[400] items-center justify-center object-contain">
         {/* h-[711.11px] w-[400] = 16:9 aspect ratio*/}
         <Image
           priority

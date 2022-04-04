@@ -10,11 +10,21 @@ const StoriesModalAtom = atom({
   default: false,
 })
 
-const StoriesAtom = atom({
-  key: 'stories',
-  default: [
-    { userName: 'beod wilson', imageUrl: 'https://imageUrl.com/image' },
-  ],
+const LastSelectedStoryIndex = atom({
+  key: 'lastSelectedStoryIndex',
+  default: null,
 })
 
-export { StoriesAtom, StoriesModalAtom, ModalAtom }
+const StoriesAtom = atom({
+  key: 'stories',
+  default: [...Array(100)].map((_, i) => {
+    return {
+      userName: 'beod wilson',
+      imageUrl: 'https://imageUrl.com/image',
+      isCenter: false,
+      onSide: false,
+    }
+  }),
+})
+
+export { StoriesAtom, StoriesModalAtom, ModalAtom, LastSelectedStoryIndex }

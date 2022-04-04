@@ -3,23 +3,27 @@ import StoriesCarousel from './StoriesCarousel'
 import Story from './Story'
 import Suggestions from './Suggestions'
 import FeedList from './FeedList'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { StoriesAtom } from '../atoms/atoms'
 function HomePage() {
-  var [test] = useRecoilState(StoriesAtom).values()
+  const userStories = useRecoilValue(StoriesAtom)
 
   return (
     <main
       className={
-        'mx-auto grid grid-cols-1 overflow-clip p-4 md:max-w-4xl md:grid-cols-3 md:p-0  xl:max-w-6xl xl:grid-cols-3 '
+        'mx-auto grid grid-cols-1 overflow-clip p-4 md:max-w-[900px] md:grid-cols-3 md:p-0  xl:max-w-6xl xl:grid-cols-3 '
       }
     >
       <section className="overflow-scroll md:col-span-2">
-        <StoriesCarousel>
-          {test.map((_, i) => (
-            <Story key={i} />
-          ))}
-        </StoriesCarousel>
+        {userStories == [] ? (
+          <div>s</div>
+        ) : (
+          <StoriesCarousel>
+            {userStories.map((userStory, i) => (
+              <Story key={i} index={i} username={userStory.userName} />
+            ))}
+          </StoriesCarousel>
+        )}
 
         <FeedList />
       </section>
