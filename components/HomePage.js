@@ -20,7 +20,12 @@ function HomePage() {
         ) : (
           <StoriesCarousel>
             {userStories.map((userStory, i) => (
-              <Story key={i} index={i} username={userStory.userName} />
+              <Story
+                image={userStory.imageUrl}
+                key={i}
+                index={i}
+                username={userStory.userName}
+              />
             ))}
           </StoriesCarousel>
         )}

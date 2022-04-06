@@ -1,12 +1,14 @@
 import React from 'react'
 import FeedCard from './FeedCard'
+import { useRecoilValue } from 'recoil'
+import { Feed } from '../atoms/atoms'
 
 function FeedList(props) {
-  var test = [...Array(20)]
+  const feed = useRecoilValue(Feed)
   return (
     <div className="flex flex-col scrollbar-hide">
-      {test.map((_, i) => (
-        <FeedCard key={i} />
+      {feed.map((post, i) => (
+        <FeedCard key={i} post={post} />
       ))}
     </div>
   )

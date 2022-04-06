@@ -15,6 +15,19 @@ function Modal(props) {
     LastSelectedStoryIndex
   )
 
+  const styles = useSpring({
+    immediate: false,
+    from: { x: 0, height: 100 },
+    to: {
+      x: 0,
+      height: 600,
+    },
+    config: {
+      duration: 300,
+      easing: easings.easeInQuart,
+    },
+  })
+
   return (
     <Dialog
       as="div"
@@ -35,14 +48,72 @@ function Modal(props) {
           </Link>
         </div>
         <div className="flex h-full grow flex-col items-center justify-center overflow-clip py-2">
-          <div className="mx-24 flex grow items-center overflow-clip bg-green px-24">
+          <div className="mx-24 flex grow items-center overflow-clip px-24">
             <div className="absolute left-1/2 z-20 flex bg-transparent">
               <button
                 className="min-w-48 mr-8  "
                 onClick={() => {
                   setScrollDist((prevScrollDist, props) => {
-                    return prevScrollDist - 100
+                    return prevScrollDist + 100
                   })
+                  if (
+                    lastSelectedStoryIndex > 1 &&
+                    lastSelectedStoryIndex < stories.length - 1
+                  ) {
+                    setStories([
+                      ...stories.slice(0, lastSelectedStoryIndex - 2),
+                      {
+                        ...stories[lastSelectedStoryIndex - 2],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex - 1],
+                        onSide: false,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex + 1],
+                        onSide: false,
+                        isCenter: false,
+                      },
+
+                      ...stories.slice(
+                        lastSelectedStoryIndex + 2,
+                        stories.length
+                      ),
+                    ])
+                    setLastSelectedStoryIndex(() => lastSelectedStoryIndex - 1)
+                  } else if (lastSelectedStoryIndex == 1) {
+                    setStories([
+                      {
+                        ...stories[0],
+                        onSide: false,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[1],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[2],
+                        onSide: true,
+                        isCenter: true,
+                      },
+
+                      ...stories.slice(3, stories.length),
+                    ])
+                    setScrollDist(0)
+                    setLastSelectedStoryIndex(() => lastSelectedStoryIndex - 1)
+                  } else {
+                    setScrollDist(0)
+                  }
                 }}
               >
                 <span className="text-white">{'<-'}</span>
@@ -50,18 +121,68 @@ function Modal(props) {
               <button
                 className="min-w-48 ml-8  "
                 onClick={() => {
-                  // setStories((prevStories) => {
-                  //   prevStories[lastSelectedStoryIndex].isCenter = false
-                  //   [...prevStories.slice(0,lastSelectedStoryIndex - 1 ),
-                  //     {...prevStories[lastSelectedStoryIndex],onSide: false, isCenter: false},
-                  //     {...prevStories[lastSelectedStoryIndex],onSide: true, isCenter: false},
-                  //     {...prevStories[lastSelectedStoryIndex],onSide: true, isCenter: true},
-                  //   ...prevStories.slice(lastSelectedStoryIndex+2, prevStories.length)]
-                  //   return prevStories
-                  // })
-                  // setScrollDist((prevScrollDist, props) => {
-                  //   return prevScrollDist + 100
-                  // })
+                  setScrollDist((prevScrollDist, props) => {
+                    return prevScrollDist - 100
+                  })
+                  if (
+                    lastSelectedStoryIndex > 0 &&
+                    lastSelectedStoryIndex < stories.length - 1
+                  ) {
+                    setStories([
+                      ...stories.slice(0, lastSelectedStoryIndex - 1),
+                      {
+                        ...stories[lastSelectedStoryIndex - 1],
+                        onSide: false,
+                        isCenter: false,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex + 1],
+                        onSide: false,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex + 2],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      ...stories.slice(
+                        lastSelectedStoryIndex + 3,
+                        stories.length
+                      ),
+                    ])
+                    setLastSelectedStoryIndex(() => lastSelectedStoryIndex + 1)
+                  } else if (lastSelectedStoryIndex == 0) {
+                    setStories([
+                      {
+                        ...stories[lastSelectedStoryIndex],
+                        onSide: true,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex + 1],
+                        onSide: false,
+                        isCenter: true,
+                      },
+                      {
+                        ...stories[lastSelectedStoryIndex + 2],
+                        onSide: true,
+                        isCenter: true,
+                      },
+
+                      ...stories.slice(
+                        lastSelectedStoryIndex + 3,
+                        stories.length
+                      ),
+                    ])
+                    setLastSelectedStoryIndex(() => lastSelectedStoryIndex + 1)
+                  } else {
+                    setScrollDist(0)
+                  }
                 }}
               >
                 <span className="text-white">{'->'}</span>
@@ -69,22 +190,9 @@ function Modal(props) {
             </div>
             {stories.map((story, i) => {
               if (story.isCenter) {
-                const styles = useSpring({
-                  immediate: false,
-                  from: { x: 0, height: 200 },
-                  to: {
-                    x: scrollDist,
-                    height: story.isCenter ? 600 : 100,
-                  },
-                  config: {
-                    duration: 300,
-                    easing: easings.easeInQuart,
-                  },
-                })
-
                 return (
                   <animated.div
-                    className="mx-4 flex h-full grow items-center bg-grey p-2 px-2"
+                    className="mx-4 flex h-full grow items-center  p-2 px-2"
                     style={styles}
                   >
                     <StoriesView

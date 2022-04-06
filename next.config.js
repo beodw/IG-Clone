@@ -14,6 +14,8 @@ module.exports = {
       'encrypted-tbn0.gstatic.com',
       'wallpaperaccess.com',
       'lh3.googleusercontent.com',
+      'cloudflare-ipfs.com',
+      'loremflickr.com',
     ],
   },
 }

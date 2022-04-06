@@ -6,9 +6,8 @@ import CommentIcon from '../public/assets/static/icons/commentIcon.svg'
 import SendIcon from '../public/assets/static/icons/send_icon.svg'
 import BookMarkIcon from '../public/assets/static/icons/bookmarkIcon.svg'
 import SmileyFaceIcon from '../public/assets/static/icons/smileyFaceIcon.svg'
-import CompassIcon from '../public/assets/static/icons/compass_icon.svg'
 
-function FeedCard() {
+function FeedCard(props) {
   return (
     <div className="mb-4 flex flex-col border-[1px] border-solid border-grey bg-white shadow">
       <div className="row mb-2 flex items-center justify-between p-4">
@@ -16,14 +15,14 @@ function FeedCard() {
           <div className="relative h-[35px] w-[35px] flex-col items-center justify-center overflow-clip rounded-full border-2 border-solid border-red object-contain p-[1.5px] hover:cursor-pointer">
             <Image
               className="rounded-full"
-              priority
-              src="https://wallpaperaccess.com/full/82965.jpg"
+              // src="https://wallpaperaccess.com/full/82965.jpg"
+              src={props.post.profileImage}
               width={124}
               height={124}
             />
           </div>
-          <p className="ml-2 w-[90px] max-w-prose truncate text-sm font-bold">
-            MrCat
+          <p className="ml-2 w-[100px] max-w-prose truncate text-sm font-bold">
+            {props.post.userName}
           </p>
         </div>
         <div className="hover:cursor-pointer">
@@ -33,8 +32,10 @@ function FeedCard() {
       <div className="relative flex h-[711.11px] w-[400] items-center justify-center object-contain">
         {/* h-[711.11px] w-[400] = 16:9 aspect ratio*/}
         <Image
-          priority
-          src="https://wallpaperaccess.com/full/6526432.jpg"
+          // src="https://wallpaperaccess.com/full/6526432.jpg"
+          src={props.post.imageUrl}
+          placeholder="blur"
+          blurDataURL={props.post.imageUrl}
           layout="fill"
         />
       </div>

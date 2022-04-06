@@ -48,7 +48,7 @@ function Story(props) {
                   isCenter: true,
                   onSide: true,
                 },
-                ...prevStories.slice(props.index + 2, prevStories.length),
+                ...prevStories.slice(props.index + 3, prevStories.length),
               ]
             : [
                 ...prevStories.slice(0, props.index - 2),
@@ -72,15 +72,14 @@ function Story(props) {
       <div className="relative h-20 w-20 flex-col items-center justify-center overflow-clip rounded-full border-2 border-solid border-red object-contain p-[1.5px] hover:cursor-pointer">
         <Image
           className="rounded-full"
-          priority
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5I4suBGVr6peZ7RSksUC2-LGnCHgMe7aC4m0VB2xusVyN7eQSOPgMNkl9Yeq_3OjJPc8&usqp=CAU"
+          src={props.image}
           width={124}
           height={124}
         />
       </div>
 
-      <div className="justify-cente flex w-full ">
-        <span className="w-18 truncate text-center text-sm">
+      <div className="flex w-full justify-center ">
+        <span className=" w-14 truncate text-center text-xs">
           {props.username}
         </span>
       </div>
