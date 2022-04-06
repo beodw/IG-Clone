@@ -38,7 +38,10 @@ const Feed = atom({
       comments: [],
       userName: faker.name.findName(),
       profileImage: faker.image.avatar(),
-      imageUrl: faker.image.city(),
+      imageUrl:
+        i % 2
+          ? faker.image.food(640, 640, true)
+          : faker.image.city(640, 640, true),
     }
   }),
 })
@@ -49,6 +52,29 @@ const SuggestionsList = atom({
     return {
       userName: faker.name.findName(),
       profileImage: faker.image.avatar(),
+      followedBy: faker.name.findName(),
+    }
+  }),
+})
+
+const MessagedUsers = atom({
+  key: 'messagedUsers',
+  default: [...Array(30)].map(() => {
+    return {
+      userName: faker.name.findName(),
+      profileImage: faker.image.avatar(),
+      messages: [
+        { text: 'Hey', byMe: false },
+        { text: 'Whatsup', byMe: true },
+        { text: "I'm good...and you?", byMe: false },
+        { text: "I'm fine", byMe: true },
+        { text: 'Cool', byMe: true },
+        { text: 'Hey', byMe: false },
+        { text: 'Whatsup', byMe: true },
+        { text: "I'm good...and you?", byMe: false },
+        { text: "I'm fine", byMe: true },
+        { text: "I'm good", byMe: true },
+      ],
     }
   }),
 })
@@ -60,4 +86,5 @@ export {
   LastSelectedStoryIndex,
   Feed,
   SuggestionsList,
+  MessagedUsers,
 }

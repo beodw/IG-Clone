@@ -34,8 +34,8 @@ function FeedCard(props) {
         <Image
           // src="https://wallpaperaccess.com/full/6526432.jpg"
           src={props.post.imageUrl}
-          placeholder="blur"
-          blurDataURL={props.post.imageUrl}
+          // placeholder="blur"
+          // blurDataURL={props.post.imageUrl}
           layout="fill"
         />
       </div>

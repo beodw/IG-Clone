@@ -1,7 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 
 function MessagedContact(props) {
+  const session = useSession()
   const toggleSelect = () => {
     props.onClick[0]((prevState, prevProps) => {
       return props.index
@@ -22,15 +24,21 @@ function MessagedContact(props) {
     >
       <div className="relative mr-2 flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-clip rounded-full">
         <Image
-          src="/assets/static/images/profileImage.png"
+          src={
+            session.status == 'authenticated'
+              ? props.user.profileImage
+              : '/assets/static/images/profileImage.png'
+          }
+          placeholder="blur"
+          blurDataURL={props.user.profileImage}
           layout="fill"
           objectFit="contain"
         />
       </div>
       <div className="flex flex-col">
-        <h6 className="w-18 truncate text-sm">{props.user.username}</h6>
+        <h6 className="w-18 truncate text-sm">{props.user.userName}</h6>
         <h6 className="w-64 truncate text-sm text-textGrey md:w-48">
-          {props.user.lastmessage}
+          {props.user.messages[props.user.messages.length - 1].text}
         </h6>
       </div>
     </div>

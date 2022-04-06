@@ -8,76 +8,15 @@ import SmileyFace from '../public/assets/static/icons/smileyFaceIcon.svg'
 import GalleryIcon from '../public/assets/static/icons/gallery_icon.svg'
 import FavoritesIcon from '../public/assets/static/icons/favorite_icon.svg'
 import MessagedContact from './MessagedContact'
+import { MessagedUsers } from '../atoms/atoms'
+import { useRecoilValue } from 'recoil'
 
 function Messages(props) {
   const session = useSession()
   const authenticated = session.status == 'authenticated'
   const [composing, setComposing] = useState(false)
-  const [messagedContacts, setMessagedContacts] = useState([])
+  const messagedUsers = useRecoilValue(MessagedUsers)
   const [selectedChat, setSelectedChat] = useState(null)
-
-  useEffect(() => {
-    setMessagedContacts((prevState, prevProps) => {
-      return [
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-        {
-          username: 'beodwilson',
-          lastmessage: 'get the jobasdasdasdasdasdasdasdasdasdasdas',
-        },
-      ]
-    })
-  }, [setMessagedContacts])
 
   const toggleCompose = () => {
     setComposing((prevState, prevProps) => {
@@ -107,7 +46,7 @@ function Messages(props) {
             </div>
           </div>
           <div className="h-[480px] overflow-auto">
-            {messagedContacts.map((user, i) => (
+            {messagedUsers.map((user, i) => (
               <MessagedContact
                 key={i}
                 index={i}
@@ -171,8 +110,8 @@ function Messages(props) {
                   </div>
                 </div>
                 <div className=" flex max-h-[405px] flex-col overflow-auto">
-                  {props.messagesList &&
-                    props.messagesList.map((message, i) => {
+                  {messagedUsers &&
+                    messagedUsers[0].messages.map((message, i) => {
                       return (
                         <div
                           key={i}

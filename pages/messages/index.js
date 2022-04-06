@@ -7,7 +7,6 @@ import Head from 'next/head'
 function index() {
   const session = useSession()
   const router = useRouter()
-  const authenticated = session.status == 'authenticated'
 
   useEffect(() => {
     if (session.status == 'unauthenticated') router.push('auth/signin')
@@ -21,36 +20,15 @@ function index() {
       <AppBar />
       <Messages
         messagesList={[
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
-          { text: 'Hey', byMe: false },
-          { text: 'Whatsup', byMe: true },
-          { text: "I'm good...and you?", byMe: false },
+          ...[...Array(100)].map(() => {
+            return (
+              { text: 'Hey', byMe: false },
+              { text: 'Whatsup', byMe: true },
+              { text: "I'm good...and you?", byMe: false },
+              { text: "I'm fine", byMe: true },
+              { text: 'Cool', byMe: true }
+            )
+          }),
         ]}
       />
     </>
