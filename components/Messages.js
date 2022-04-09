@@ -95,14 +95,14 @@ function Messages(props) {
                         />
                       ) : (
                         <Image
-                          src={session.data.user.image}
+                          src={messagedUsers[selectedChat].profileImage}
                           layout="fill"
                           objectFit="contain"
                         />
                       )}
                     </div>
-                    <span className="text-md w-24 truncate font-semibold">
-                      {authenticated && session.data.user.username}
+                    <span className="text-md w-max-prose  font-semibold">
+                      {authenticated && messagedUsers[selectedChat].userName}
                     </span>
                   </div>
                   <div className="flex ">

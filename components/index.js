@@ -4,5 +4,14 @@ import StoriesCarousel from './StoriesCarousel'
 import Content from './Content'
 import Messages from './Messages'
 import ModalBackground from './ModalBackground'
+import ImageEditor from './ImageEditor'
 
-export { AppBar, HomePage, StoriesCarousel, Content, Messages, ModalBackground }
+export {
+  AppBar,
+  HomePage,
+  StoriesCarousel,
+  Content,
+  Messages,
+  ModalBackground,
+  ImageEditor,
+}

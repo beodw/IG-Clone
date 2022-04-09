@@ -16,7 +16,7 @@ function HomePage() {
     >
       <section className="overflow-scroll md:col-span-2">
         {userStories == [] ? (
-          <div>s</div>
+          <div></div>
         ) : (
           <StoriesCarousel>
             {userStories.map((userStory, i) => (

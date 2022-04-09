@@ -5,6 +5,7 @@ import { Feed } from '../atoms/atoms'
 
 function FeedList(props) {
   const feed = useRecoilValue(Feed)
+
   return (
     <div className="flex flex-col scrollbar-hide">
       {feed.map((post, i) => (
