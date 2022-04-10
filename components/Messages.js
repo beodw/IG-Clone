@@ -8,14 +8,14 @@ import SmileyFace from '../public/assets/static/icons/smileyFaceIcon.svg'
 import GalleryIcon from '../public/assets/static/icons/gallery_icon.svg'
 import FavoritesIcon from '../public/assets/static/icons/favorite_icon.svg'
 import MessagedContact from './MessagedContact'
-import { MessagedUsers } from '../atoms/atoms'
+import { Conversations } from '../atoms'
 import { useRecoilValue } from 'recoil'
 
 function Messages(props) {
   const session = useSession()
   const authenticated = session.status == 'authenticated'
   const [composing, setComposing] = useState(false)
-  const messagedUsers = useRecoilValue(MessagedUsers)
+  const conversations = useRecoilValue(Conversations)
   const [selectedChat, setSelectedChat] = useState(null)
 
   const toggleCompose = () => {
@@ -46,7 +46,7 @@ function Messages(props) {
             </div>
           </div>
           <div className="h-[480px] overflow-auto">
-            {messagedUsers.map((user, i) => (
+            {conversations.map((user, i) => (
               <MessagedContact
                 key={i}
                 index={i}
@@ -95,14 +95,14 @@ function Messages(props) {
                         />
                       ) : (
                         <Image
-                          src={messagedUsers[selectedChat].profileImage}
+                          src={conversations[selectedChat].profileImage}
                           layout="fill"
                           objectFit="contain"
                         />
                       )}
                     </div>
                     <span className="text-md w-max-prose  font-semibold">
-                      {authenticated && messagedUsers[selectedChat].userName}
+                      {authenticated && conversations[selectedChat].userName}
                     </span>
                   </div>
                   <div className="flex ">
@@ -110,8 +110,8 @@ function Messages(props) {
                   </div>
                 </div>
                 <div className=" flex max-h-[405px] flex-col overflow-auto">
-                  {messagedUsers &&
-                    messagedUsers[0].messages.map((message, i) => {
+                  {conversations &&
+                    conversations[0].messages.map((message, i) => {
                       return (
                         <div
                           key={i}

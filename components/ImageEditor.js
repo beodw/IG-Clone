@@ -81,8 +81,12 @@ function ImageEditor() {
 
   return (
     <div
-      style={{ width: filesContent.length ? '800px' : '500px' }}
-      className={`mx-auto mt-10 flex h-[480px] grow flex-col overflow-scroll rounded-[15px] bg-white`}
+      // style={{ width: filesContent.length ? '800px' : '500px' }}
+      className={`mx-auto mt-10 flex  ${
+        filesContent.length
+          ? 'h-[300px] w-[475px] sm:h-[380px] sm:w-[650px] md:h-[450px] md:w-[800px]'
+          : 'h-[400px] w-full sm:w-1/2'
+      } grow flex-col overflow-scroll rounded-[15px] bg-white `}
     >
       {!filesContent.length ? (
         <div className="border-b-solid flex justify-center border-b-[0.1px] border-b-grey p-0">

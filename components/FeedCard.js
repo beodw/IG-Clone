@@ -26,14 +26,18 @@ function FeedCard(props) {
       <div className="row mb-2 flex items-center justify-between p-4">
         <div className="ml-2 flex items-center justify-between">
           <div className="relative h-[35px] w-[35px] flex-col items-center justify-center overflow-clip rounded-full border-2 border-solid border-red object-contain p-[1.5px] hover:cursor-pointer">
-            <Image
-              className="rounded-full"
-              src={props.post.profileImage ?? '/assets/images/profileImage.png'}
-              // placeholder={props.fake ? 'empty' : `blur`}
-              // blurDataURL={props.fake ? '' : props.post.profileImage}
-              width={124}
-              height={124}
-            />
+            {props.post.profileImage ? (
+              <Image
+                className="rounded-full"
+                src={props.post.profileImage}
+                // placeholder={props.fake ? 'empty' : `blur`}
+                // blurDataURL={props.fake ? '' : props.post.profileImage}
+                width={124}
+                height={124}
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <p className="ml-2 w-[100px] max-w-prose truncate text-sm font-bold hover:cursor-pointer">
             {props.post.userName}
@@ -45,12 +49,16 @@ function FeedCard(props) {
       </div>
       <div className="relative flex h-[711.11px] w-[400] items-center justify-center object-contain">
         {/* h-[711.11px] w-[400] = 16:9 aspect ratio*/}
-        <Image
-          src={props.post.imageUrl ?? '/assets/images/profileImage.png'}
-          // placeholder={props.fake ? 'empty' : `blur`}
-          // blurDataURL={props.fake ? '' : props.post.imageUrl}
-          layout="fill"
-        />
+        {props.post.imageUrl ? (
+          <Image
+            src={props.post.imageUrl}
+            // placeholder={props.fake ? 'empty' : `blur`}
+            // blurDataURL={props.fake ? '' : props.post.imageUrl}
+            layout="fill"
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex flex-col ">
         <div className="flex w-full justify-between p-4">

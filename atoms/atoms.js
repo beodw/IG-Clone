@@ -1,5 +1,38 @@
 import { atom } from 'recoil'
 import { faker } from '@faker-js/faker'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { fireStoreDB } from '../firebase'
+
+const subscribeToPosts = ({ node, setSelf }) =>
+  onSnapshot(
+    query(collection(fireStoreDB, 'posts'), orderBy('timeStamp', 'desc')),
+    (snapshot) => {
+      let feed = snapshot.docs.map((post) => post.data())
+      setSelf([...feed, ...genFakeFeed({ offset: feed.length })])
+    }
+  )
+
+const genFakeFeed = ({ offset }) =>
+  [...Array(100 - offset)].map((_, i) => {
+    return {
+      caption: faker.random.word(),
+      isBookmarked: false,
+      likes: 0,
+      comments: [],
+      userName: faker.name.findName(),
+      profileImage: faker.image.avatar(),
+      imageUrl:
+        i % 2
+          ? faker.image.food(640, 640, true)
+          : faker.image.city(640, 640, true),
+    }
+  })
+
+const Feed = atom({
+  key: 'feed',
+  default: [],
+  effects: [subscribeToPosts],
+})
 
 const ModalAtom = atom({
   key: 'isShown',
@@ -40,8 +73,8 @@ const SuggestionsList = atom({
   }),
 })
 
-const MessagedUsers = atom({
-  key: 'messagedUsers',
+const Conversations = atom({
+  key: 'conversations',
   default: [...Array(30)].map(() => {
     return {
       userName: faker.name.findName(),
@@ -68,5 +101,6 @@ export {
   ModalAtom,
   LastSelectedStoryIndex,
   SuggestionsList,
-  MessagedUsers,
+  Conversations,
+  Feed,
 }

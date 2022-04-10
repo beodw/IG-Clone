@@ -1,8 +1,6 @@
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import CloseIcon from '../public/assets/static/icons/close_icon.svg'
-import { useRecoilState } from 'recoil'
-import { ModalAtom } from '../atoms/atoms'
 
 function Modal(props) {
   return (
@@ -13,7 +11,7 @@ function Modal(props) {
         className="overflow-y-none fixed inset-0 z-10"
         onClose={props.close}
       >
-        <div className="sm:min-h0-screen sm-p-0 flex min-h-[800px] items-end justify-center bg-black bg-opacity-[0.85] px-4 pt-4 pb-20 text-center sm:block">
+        <div className="flex min-h-[800px] items-start justify-center bg-black bg-opacity-[0.85] px-4 pt-4 pb-20 text-center sm:block sm:min-h-screen sm:p-0 md:items-end">
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -23,7 +21,7 @@ function Modal(props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div>
+            <div className="w-full pt-4 pr-4">
               <div className="flex h-full w-full justify-end pr-2">
                 <CloseIcon
                   className="hover:cursor-pointer"
