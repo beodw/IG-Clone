@@ -41,7 +41,7 @@ function AppBar() {
 
       <div
         className={
-          'hidden w-48 items-center overflow-clip rounded-lg border border-solid border-greyBorder bg-grey p-1 focus-within:border-grey md:flex'
+          'hidden w-64 items-center overflow-clip rounded-lg border border-solid border-greyBorder bg-grey p-1 focus-within:border-grey md:flex'
         }
       >
         <div className={'sm:mr-3'}>

@@ -9,8 +9,7 @@ import { useRecoilState } from 'recoil'
 import { ModalAtom, StoriesModalAtom } from '../atoms/atoms'
 import Modal from '../components/Modal'
 import StoriesModal from '../components/StoriesModal'
-
-import { useFilePicker } from 'use-file-picker'
+import SearchIcon from '../public/assets/static/icons/search_icon.svg'
 import { ImageEditor } from '../components'
 
 const Home: NextPage = () => {
@@ -43,6 +42,9 @@ const Home: NextPage = () => {
       )}
       <AppBar />
       <HomePage />
+      <button className="absolute bottom-10 right-10 flex h-[60px] w-[60px] items-center justify-center rounded-full bg-grey bg-opacity-80 hover:opacity-60 md:hidden">
+        <SearchIcon />
+      </button>
     </div>
   )
 }
