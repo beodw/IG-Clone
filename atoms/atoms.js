@@ -29,23 +29,6 @@ const StoriesAtom = atom({
   }),
 })
 
-const Feed = atom({
-  key: 'feed',
-  default: [...Array(100)].map((_, i) => {
-    return {
-      isBookmarked: false,
-      likes: 0,
-      comments: [],
-      userName: faker.name.findName(),
-      profileImage: faker.image.avatar(),
-      imageUrl:
-        i % 2
-          ? faker.image.food(640, 640, true)
-          : faker.image.city(640, 640, true),
-    }
-  }),
-})
-
 const SuggestionsList = atom({
   key: 'suggestions',
   default: [...Array(5)].map((_, i) => {
@@ -84,7 +67,6 @@ export {
   StoriesModalAtom,
   ModalAtom,
   LastSelectedStoryIndex,
-  Feed,
   SuggestionsList,
   MessagedUsers,
 }

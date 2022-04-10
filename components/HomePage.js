@@ -14,7 +14,7 @@ function HomePage() {
         'mx-auto grid grid-cols-1 overflow-clip p-4 md:max-w-[920px] md:grid-cols-3 md:p-0  xl:max-w-6xl xl:grid-cols-3 '
       }
     >
-      <section className="overflow-scroll md:col-span-2">
+      <section className="overflow-scroll scrollbar-hide md:col-span-2">
         {userStories == [] ? (
           <div></div>
         ) : (

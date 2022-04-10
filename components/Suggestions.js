@@ -69,7 +69,7 @@ function Suggestions() {
           </div>
           <div className="ml-4 grow flex-col items-start justify-start">
             <h4 className="w-full truncate">{suggestion.userName}</h4>
-            <h4 className="w-full truncate text-sm text-textGrey">
+            <h4 className="w-48 truncate text-sm text-textGrey">
               Followed by {suggestion.followedBy}
             </h4>
           </div>

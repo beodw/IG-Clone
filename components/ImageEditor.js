@@ -50,10 +50,11 @@ function ImageEditor() {
     setUploading(true)
 
     const docRef = await addDoc(collection(fireStoreDB, 'posts'), {
-      username: session.data.user.username,
+      userName: session.data.user.username,
       caption: textAreaRef.current.value,
       profileImage: session.data.user.image,
       timeStamp: serverTimestamp(),
+      comments: [{ username: 'some user', text: 'I like this post' }],
     })
     const imageRef = ref(firebaseStorage, `posts/${docRef.id}/image`)
 
@@ -61,7 +62,7 @@ function ImageEditor() {
       async (snapshot) => {
         const downloadUrl = await getDownloadURL(imageRef)
         await updateDoc(doc(fireStoreDB, 'posts', `${docRef.id}`), {
-          image: downloadUrl,
+          imageUrl: downloadUrl,
         })
       }
     )
@@ -162,7 +163,7 @@ function ImageEditor() {
             ></textarea>
             <div className="flex justify-between pb-4">
               {/* <SmileyFace /> */}
-              <span className="text-sm text-grey hover:text-black">
+              <span className="text-sm text-wordCount hover:text-black">
                 {charCount}/2,200
               </span>
             </div>

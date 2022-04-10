@@ -2,24 +2,26 @@ import React from 'react'
 import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 import FavoriteIcon from '../public/assets/static/icons/favorite_icon.svg'
 import HomeIcon from '../public/assets/static/icons/home_icon_filled.svg'
 import SendIcon from '../public/assets/static/icons/send_icon.svg'
+import SendIconFilled from '../public/assets/static/icons/send_icon_filled.svg'
 import PlusIcon from '../public/assets/static/icons/plus_icon.svg'
 import SearchIcon from '../public/assets/static/icons/search_icon.svg'
 import CompassIcon from '../public/assets/static/icons/compass_icon.svg'
 
 import { ModalAtom } from '../atoms/atoms'
 import { useRecoilState } from 'recoil'
+import { useRouter } from 'next/router'
 
 function AppBar() {
   const session = useSession()
   const [modalState, setModalState] = useRecoilState(ModalAtom)
+  const router = useRouter()
 
   return (
-    <div className="z-2 sticky top-0 flex h-16 w-full items-center justify-between bg-white px-2 shadow md:px-[105px]">
+    <div className="z-2 sticky top-0 flex h-16 w-full items-center justify-between bg-white py-4 px-2 shadow md:px-[105px]">
       <Link href="/">
         <div className="relative mr-4 h-full w-28  shrink-0 hover:cursor-pointer sm:block md:block">
           <Image
@@ -29,16 +31,7 @@ function AppBar() {
             layout="fill"
           />
         </div>
-
-        {/* <div className=" xs:block relative mb-2 mr-2 h-12 w-12 shrink-0 sm:hidden md:mb-0 md:hidden lg:hidden">
-        <Image
-          objectFit="contain"
-          src="/assets/static/images/favicon.png"
-          layout="fill"
-        />
-      </div> */}
       </Link>
-
       <div
         className={
           'hidden w-64 items-center overflow-clip rounded-lg border border-solid border-greyBorder bg-grey p-1 focus-within:border-grey md:flex'
@@ -61,15 +54,19 @@ function AppBar() {
       <div className="flex items-center">
         <Link href="/">
           <div className="navBtn xs:hidden mr-2 rounded-full p-2 hover:bg-grey ">
-            <HomeIcon width="24" height="24" />
+            <HomeIcon
+              width="24"
+              height="24"
+              className={`${
+                router.pathname == '/' ? 'fill-black' : 'fill-white'
+              } stroke-black stroke-2`}
+            />
           </div>
         </Link>
-        <div className="navBtn xs:w-5 mr-2 rounded-full p-2 hover:bg-grey">
-          {/* <SendIcon width="24" height="24" /> */}
+        <div className="navBtn xs:w-5 mr-2 flex items-center justify-center rounded-full p-2 hover:bg-grey">
           <Link href="/messages">
-            <SendIcon width="24" height="24" />
+            {router.pathname == '/messages' ? <SendIconFilled /> : <SendIcon />}
           </Link>
-          {/* <div className="relative  flex h-3 w-3 animate-pulse items-center justify-center overflow-clip rounded-full bg-red text-xs"></div> */}
         </div>
         <div
           onClick={() => {

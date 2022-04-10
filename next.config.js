@@ -16,6 +16,7 @@ module.exports = {
       'lh3.googleusercontent.com',
       'cloudflare-ipfs.com',
       'loremflickr.com',
+      'firebasestorage.googleapis.com',
     ],
   },
 }

@@ -55,6 +55,7 @@ module.exports = {
       textGrey: '#8e8e8e',
       linkBlue: '#0095f6',
       modalBlack: '#191919',
+      wordCount: '#c7c7c7',
     },
   },
   plugins: [require('tailwind-scrollbar-hide')],
