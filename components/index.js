@@ -5,6 +5,7 @@ import Content from './Content'
 import Messages from './Messages'
 import ModalBackground from './ModalBackground'
 import ImageEditor from './ImageEditor'
+import ImageGrid from './ImageGrid'
 
 export {
   AppBar,
@@ -14,4 +15,5 @@ export {
   Messages,
   ModalBackground,
   ImageEditor,
+  ImageGrid,
 }
