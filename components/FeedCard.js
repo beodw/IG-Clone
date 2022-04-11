@@ -1,26 +1,78 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import Image from 'next/image'
 import HeartIcon from '../public/assets/static/icons/favorite_icon.svg'
+import HeartIconFilled from '../public/assets/static/icons/favorite_icon_red.svg'
 import MoreHorizontalIcon from '../public/assets/static/icons/moreHorizontal.svg'
 import CommentIcon from '../public/assets/static/icons/commentIcon.svg'
 import SendIcon from '../public/assets/static/icons/send_icon.svg'
 import BookMarkIcon from '../public/assets/static/icons/bookmarkIcon.svg'
 import SmileyFaceIcon from '../public/assets/static/icons/smileyFaceIcon.svg'
 import CommentHeartIcon from '../public/assets/static/icons/comment_like_icon.svg'
+import { fireStoreDB } from '../firebase'
+import { doc, getDocFromServer, updateDoc } from 'firebase/firestore'
+import { useSession } from 'next-auth/react'
 
 function FeedCard(props) {
+  const { data: session } = useSession()
   const [bookmarked, setBookmarked] = useState(false)
-  const toggleLike = () => {
-    alert('liked')
+  const commentInputRef = useRef(null)
+  const [addingComment, setAddingComment] = useState(false)
+  const [commentInputFilled, setCommentInputFilled] = useState(false)
+
+  const addComment = async (e, fake) => {
+    e.preventDefault()
+    if (commentInputRef.current.value.trim() == '') return
+    setAddingComment(true)
+    setCommentInputFilled(false)
+
+    if (fake) {
+      alert('This is dummy data. Please make a real post tto comment.')
+      return setAddingComment(false)
+    }
+    try {
+      let postRef = doc(fireStoreDB, 'posts', props.post.id)
+      let post = await getDocFromServer(postRef)
+      await updateDoc(postRef, {
+        comments: [
+          {
+            uid: session.user.uid,
+            username: session.user.username,
+            text: commentInputRef.current.value,
+          },
+          ...post.data().comments,
+        ],
+      })
+    } catch (e) {
+      commentInputRef.current.value = ''
+      setAddingComment(false)
+      setCommentInputFilled(false)
+      alert('Could not add comment.')
+    }
+    commentInputRef.current.value = ''
+    setAddingComment(false)
+  }
+  const toggleLike = async () => {
+    try {
+      let postRef = doc(fireStoreDB, 'posts', props.post.id)
+      let post = await getDocFromServer(postRef)
+      if (props.post.hasOwnProperty('likes')) {
+        if (props.post.likes.includes(session.user.uid)) {
+          await updateDoc(postRef, {
+            likes: post.data().likes.filter((uid) => uid != session.user.uid),
+          })
+        } else {
+          await updateDoc(postRef, {
+            likes: [session.user.uid, ...post.data().likes],
+          })
+        }
+      }
+    } catch (e) {
+      alert('Could not like post')
+    }
   }
   const toggleBookmark = () => {
     setBookmarked(!bookmarked)
   }
-
-  // useEffect(()=>{
-  //   if(!props.post.profileImage) props.post.profileImage = '/assets/images/profileImage.png'
-  // }, [props.post])
-
   return (
     <div className="mb-4 flex flex-col border-[1px] border-solid border-grey bg-white shadow">
       <div className="row mb-2 flex items-center justify-between p-4">
@@ -64,10 +116,21 @@ function FeedCard(props) {
         <div className="flex w-full justify-between p-4">
           <div className="flex">
             <div
-              onClick={() => toggleLike()}
+              onClick={() =>
+                props.post.fake
+                  ? alert(
+                      'This is a fake post for demo purpose only please upload a real post to like'
+                    )
+                  : toggleLike()
+              }
               className="navBtn mr-4 hover:cursor-pointer"
             >
-              <HeartIcon />
+              {props.post.fake == false &&
+              props.post.likes.includes(session.user.uid) ? (
+                <HeartIconFilled className={'navBtn hover:cursor-pointer'} />
+              ) : (
+                <HeartIcon className={'navBtn '} />
+              )}
             </div>
             <div className="navBtn mr-4 hover:cursor-pointer">
               <CommentIcon />
@@ -94,15 +157,24 @@ function FeedCard(props) {
           <span className="text-md">{props.post.caption}</span>
         </div>
         <div className="mx-4 flex items-center justify-start hover:cursor-pointer ">
-          <span className="text-sm text-wordCount">{`View all 31,000 comments`}</span>
+          <span className="text-sm text-wordCount">{`View all ${props.post.comments.length} comments`}</span>
         </div>
-        <div className="mx-4 flex items-center justify-between  ">
-          <span className="w-48 truncate text-sm hover:cursor-pointer">
-            <span className="font-bold hover:underline">{'beodwilson'}</span>{' '}
-            <span>{`this is awesome`}</span>
-          </span>
-          <CommentHeartIcon className="navBtn fill-black hover:fill-textGrey" />
-        </div>
+
+        {props.post.comments.map((comment, i) =>
+          i < 2 ? (
+            <div className="mx-4 flex items-center justify-between  ">
+              <span className="w-48 truncate text-sm hover:cursor-pointer">
+                <span className="font-bold hover:underline">
+                  {comment.username}
+                </span>{' '}
+                <span>{comment.text}</span>
+              </span>
+              <CommentHeartIcon className="navBtn fill-black hover:fill-textGrey" />
+            </div>
+          ) : (
+            <></>
+          )
+        )}
 
         <div className="flex justify-start pl-4 pt-2">
           <span className="text-xs font-thin text-wordCount hover:cursor-pointer">
@@ -117,15 +189,27 @@ function FeedCard(props) {
           <form className="flex grow">
             <div className="grow">
               <input
+                onChange={(e) => {
+                  e.target.value.trim() != ''
+                    ? setCommentInputFilled(true)
+                    : setCommentInputFilled(false)
+                }}
+                ref={commentInputRef}
                 className={' w-full border-none bg-white outline-0 '}
                 placeholder="Add a comment..."
               />
             </div>
             <button
-              type="button"
-              className="text-sm font-semibold text-linkBlue"
+              disabled={addingComment}
+              onClick={(e) => addComment(e, props.post.fake)}
+              type="submit"
+              className={`text-sm font-semibold ${
+                addingComment || commentInputFilled
+                  ? 'text-linkBlue'
+                  : 'text-wordCount'
+              } }`}
             >
-              Post
+              {addingComment ? 'Posting' : 'Post'}
             </button>
           </form>
         </div>

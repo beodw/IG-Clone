@@ -54,7 +54,9 @@ function ImageEditor() {
       caption: textAreaRef.current.value,
       profileImage: session.data.user.image,
       timeStamp: serverTimestamp(),
-      comments: [{ username: 'some user', text: 'I like this post' }],
+      comments: [],
+      fake: false,
+      likes: [],
     })
     const imageRef = ref(firebaseStorage, `posts/${docRef.id}/image`)
 
@@ -63,6 +65,7 @@ function ImageEditor() {
         const downloadUrl = await getDownloadURL(imageRef)
         await updateDoc(doc(fireStoreDB, 'posts', `${docRef.id}`), {
           imageUrl: downloadUrl,
+          id: docRef.id,
         })
       }
     )
