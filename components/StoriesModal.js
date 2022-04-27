@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog } from '@headlessui/react'
 import CloseIcon from '../public/assets/static/icons/close_icon.svg'
+import ArrowIcon from '../public/assets/static/icons/downward_arrow.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import StoriesView from './StoriesView'
@@ -48,10 +49,10 @@ function Modal(props) {
           </Link>
         </div>
         <div className="flex h-full grow flex-col items-center justify-center overflow-clip py-2">
-          <div className="mx-24 flex grow items-center overflow-clip px-24">
-            <div className="absolute left-1/2 z-20 flex bg-transparent">
+          <div className="mx-24 flex grow items-center justify-center overflow-clip px-24">
+            <div className="absolute z-20 flex">
               <button
-                className="min-w-48 mr-8  "
+                className="min-w-48 mr-48 h-6 w-6 rounded-full bg-StoryButton hover:bg-grey focus:outline-none "
                 onClick={() => {
                   setScrollDist((prevScrollDist, props) => {
                     return prevScrollDist + 100
@@ -116,10 +117,12 @@ function Modal(props) {
                   }
                 }}
               >
-                <span className="text-white">{'<-'}</span>
+                <div className="flex items-center justify-center pr-[2px] text-white">
+                  <ArrowIcon className="-rotate-90 fill-black" />
+                </div>
               </button>
               <button
-                className="min-w-48 ml-8  "
+                className="min-w-8 min-h-8 ml-48 h-6 w-6 rounded-full bg-StoryButton hover:bg-grey focus:outline-none"
                 onClick={() => {
                   setScrollDist((prevScrollDist, props) => {
                     return prevScrollDist - 100
@@ -185,7 +188,9 @@ function Modal(props) {
                   }
                 }}
               >
-                <span className="text-white">{'->'}</span>
+                <div className="flex items-center justify-center pl-[2px] text-white">
+                  <ArrowIcon className="rotate-90 fill-black" />
+                </div>
               </button>
             </div>
             {stories.map((story, i) => {

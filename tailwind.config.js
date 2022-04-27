@@ -56,6 +56,7 @@ module.exports = {
       linkBlue: '#0095f6',
       modalBlack: '#191919',
       wordCount: '#c7c7c7',
+      StoryButton: '#262626',
     },
   },
   plugins: [require('tailwind-scrollbar-hide')],

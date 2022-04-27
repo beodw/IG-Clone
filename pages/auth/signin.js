@@ -14,6 +14,7 @@ function signIn({ providers }) {
   var authenticated = session.status == 'authenticated'
 
   authenticated && router.push('/')
+  if (providers == null) return <></>
 
   return authenticated ? (
     <></>

@@ -9,6 +9,9 @@ module.exports = {
 
     return config
   },
+  node: {
+    fs: 'empty',
+  },
   images: {
     domains: [
       'encrypted-tbn0.gstatic.com',

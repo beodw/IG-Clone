@@ -2,6 +2,7 @@ import { atom } from 'recoil'
 import { faker } from '@faker-js/faker'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { fireStoreDB } from '../firebase'
+import { io } from 'socket.io-client'
 
 const subscribeToPosts = ({ setSelf }) =>
   onSnapshot(
@@ -11,7 +12,7 @@ const subscribeToPosts = ({ setSelf }) =>
     }
   )
 
-const fakeFeed = [...Array(1)].map((_, i) => {
+const fakeFeed = [...Array(100)].map((_, i) => {
   return {
     fake: true,
     id: faker.datatype.number(),
@@ -73,6 +74,17 @@ const SuggestionsList = atom({
       followedBy: faker.name.findName(),
     }
   }),
+})
+
+const subscribeToMessagesMicroService = () => {
+  // const socket = io('http://localhost:3000/api/ms')
+  // socket.on('connect', () => alert('connected'))
+}
+
+const MessagingServices = atom({
+  key: 'messagingServices',
+  default: [],
+  effects: [subscribeToMessagesMicroService],
 })
 
 const Conversations = atom({

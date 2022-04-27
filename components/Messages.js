@@ -10,6 +10,7 @@ import FavoritesIcon from '../public/assets/static/icons/favorite_icon.svg'
 import MessagedContact from './MessagedContact'
 import { Conversations } from '../atoms'
 import { useRecoilValue } from 'recoil'
+import { io } from 'socket.io-client'
 
 function Messages(props) {
   const session = useSession()
@@ -23,6 +24,16 @@ function Messages(props) {
       return !composing
     })
   }
+
+  const subscribeToMessagesMicroService = async () => {
+    const socket = io('http://127.0.0.1:3000/api/ms')
+
+    // alert(socket.connected)
+
+    socket.on('receive-messages', () => alert('connected'))
+  }
+
+  useEffect(() => console.log('...'), [setSelectedChat])
 
   return (
     <div className="flex h-[575px] w-full justify-center">
