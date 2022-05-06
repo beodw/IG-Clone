@@ -1,3 +1,3 @@
-import { Feed, Conversations } from './atoms'
+import { Feed, Conversations, StoriesAtom } from './atoms'
 
-export { Feed, Conversations }
+export { Feed, Conversations, StoriesAtom }
