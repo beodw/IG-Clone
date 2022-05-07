@@ -197,6 +197,7 @@ function Modal(props) {
               if (story.isCenter) {
                 return (
                   <animated.div
+                    key={i}
                     className="mx-4 flex h-full grow items-center  p-2 px-2"
                     style={styles}
                   >

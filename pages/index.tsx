@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   }, [session.status])
 
   return (
-    <div className="flex h-screen flex-col overflow-clip">
+    <div className="relative flex h-screen flex-col overflow-clip">
       <Head>
         <title>Instagram Clone</title>
         <link rel="icon" href="/assets/static/images/favicon.png" />
@@ -42,9 +42,10 @@ const Home: NextPage = () => {
       )}
       <AppBar />
       <HomePage />
-      <button className="absolute bottom-10 right-10 flex h-[60px] w-[60px] items-center justify-center rounded-full bg-grey bg-opacity-80 hover:opacity-60 md:hidden">
+
+      {/* <button className="absolute bottom-10 right-10 flex h-[60px] w-[60px] items-center justify-center rounded-full bg-grey bg-opacity-80 hover:opacity-60 md:hidden">
         <SearchIcon />
-      </button>
+      </button> */}
     </div>
   )
 }

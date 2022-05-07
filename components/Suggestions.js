@@ -23,6 +23,7 @@ function Suggestions() {
           ) : (
             <Image
               src={authenticated && session.data.user.image}
+              className="rounded-full"
               objectFit="contain"
               width="80"
               height="80"
@@ -61,6 +62,7 @@ function Suggestions() {
           <div className="flex h-10 w-10 items-center justify-center overflow-clip rounded-full shadow hover:cursor-pointer">
             <Image
               // src="/assets/static/images/profileImage.png"\
+              className="rounded-full"
               src={suggestion.profileImage}
               objectFit="contain"
               width="80"

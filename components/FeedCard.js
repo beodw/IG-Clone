@@ -99,7 +99,10 @@ function FeedCard(props) {
           <MoreHorizontalIcon />
         </div>
       </div>
-      <div className="relative flex h-[711.11px] w-[400] items-center justify-center object-contain">
+      <div
+        onDoubleClick={() => toggleLike()}
+        className="relative flex h-[711.11px] w-[400] select-none items-center justify-center object-contain"
+      >
         {/* h-[711.11px] w-[400] = 16:9 aspect ratio*/}
         {props.post.imageUrl ? (
           <Image

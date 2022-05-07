@@ -21,7 +21,7 @@ function AppBar() {
   const router = useRouter()
 
   return (
-    <div className="z-2 sticky top-0 flex h-16 w-full items-center justify-between bg-white py-4 px-2 shadow md:px-[105px]">
+    <div className="sticky top-0 z-10 flex h-16 w-full items-center justify-between bg-white py-4 px-2 shadow md:px-[105px]">
       <Link href="/">
         <div className="relative mr-4 h-full w-28  shrink-0 hover:cursor-pointer sm:block md:block">
           <Image
