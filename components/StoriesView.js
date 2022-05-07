@@ -51,48 +51,56 @@ const StoriesView = forwardRef((props, ref) => {
           }}
           className="absolute top-0 left-0 h-full w-full rounded-md px-2"
         ></div>
-        <div className="relative w-full">
-          <div className="flex justify-center">
-            <div className="mx-[1px] h-[2px] w-11/12 rounded-lg bg-white"></div>
-            {/* <div className="mx-[1px] h-[2px] w-24 rounded-lg bg-white"></div>
+        {!props.onSide ? (
+          <div className="relative w-full">
+            <div className="flex justify-center">
+              <div className="mx-[1px] h-[2px] w-11/12 rounded-lg bg-white"></div>
+              {/* <div className="mx-[1px] h-[2px] w-24 rounded-lg bg-white"></div>
             <div className="mx-[1px] h-[2px] w-24 rounded-lg bg-white"></div> */}
-          </div>
-          <div className="mt-4 flex items-center justify-between px-4">
-            <div className="flex items-center justify-between">
-              <div className="relative flex h-10 w-10 items-center justify-center overflow-clip rounded-full hover:cursor-pointer">
-                <Image
-                  src={stories[props.index].imageUrl}
-                  layout="fill"
-                  objectFit="contain"
-                />
+            </div>
+            <div className="mt-4 flex items-center justify-between px-4">
+              <div className="flex items-center justify-between">
+                <div className="relative flex h-10 w-10 items-center justify-center overflow-clip rounded-full hover:cursor-pointer">
+                  <Image
+                    src={stories[props.index].imageUrl}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
+                <div className="mx-4 flex justify-between">
+                  <span className="mx-2 w-14 truncate text-xs font-semibold text-white hover:cursor-pointer">
+                    {stories[props.index].userName}
+                  </span>
+                  <span className="text-xs font-thin text-black">
+                    {test == 0 ? test + 1 : test}h
+                  </span>
+                </div>
               </div>
-              <div className="mx-4 flex justify-between">
-                <span className="mx-2 w-14 truncate text-xs font-semibold text-white hover:cursor-pointer">
-                  {stories[props.index].userName}
-                </span>
-                <span className="text-xs font-thin text-black">
-                  {test == 0 ? test + 1 : test}h
-                </span>
+              <div className="flex justify-around">
+                <button className="mr-4 text-xs">
+                  <PlayIcon className="h-4 w-4" />
+                </button>
+                <button className="mr-4 text-xs ">
+                  <MuteIcon className="h-4 w-4" />
+                </button>
+                <button className="text-xs ">
+                  <MoreHorizontal className="h-4 w-4" />
+                </button>
               </div>
             </div>
-            <div className="flex justify-around">
-              <button className="mr-4 text-xs">
-                <PlayIcon className="h-4 w-4" />
-              </button>
-              <button className="mr-4 text-xs ">
-                <MuteIcon className="h-4 w-4" />
-              </button>
-              <button className="text-xs ">
-                <MoreHorizontal className="h-4 w-4" />
-              </button>
-            </div>
           </div>
-        </div>
-        <div className="relative mx-4 h-5/6 w-5/6">
+        ) : (
+          <></>
+        )}
+        <div
+          className={`relative mx-4 ${
+            props.onSide ? 'h-12 w-12 rounded-full' : 'h-5/6 w-5/6'
+          } overflow-clip `}
+        >
           <Image
             id={props.index}
             onLoadingComplete={() => getBG()}
-            className="mx-4"
+            className="mx-4 h-12 w-12"
             priority
             src={props.story.imageUrl}
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5I4suBGVr6peZ7RSksUC2-LGnCHgMe7aC4m0VB2xusVyN7eQSOPgMNkl9Yeq_3OjJPc8&usqp=CAU"
