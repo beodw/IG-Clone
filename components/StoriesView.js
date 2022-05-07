@@ -53,10 +53,15 @@ const StoriesView = forwardRef((props, ref) => {
         {props.onSide && (
           <div className="absolute z-50 h-full w-full bg-white/[.35] hover:cursor-pointer">
             <div className="absolute top-1/2 left-1/2 z-30 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center overflow-clip">
-              <img
-                className="h-14 w-14 rounded-full border-[1px] border-red p-[2px]"
-                src={stories[props.index].imageUrl}
-              />
+              <div className="h-14 w-14 rounded-full border-[1px] border-red p-[2px]">
+                <Image
+                  className="rounded-full"
+                  src={stories[props.index].imageUrl}
+                  layout="intrinsic"
+                  width={50}
+                  height={50}
+                />
+              </div>
               <div className="flex flex-col items-center justify-center">
                 <h1 className="truncate text-sm text-white">
                   {stories[props.index].userName}
