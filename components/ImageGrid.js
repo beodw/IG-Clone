@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useRef, useCallback } from 'react'
 import AspectRatioIcon from '../public/assets/static/icons/aspect_ratio_icon.svg'
+
 import MagnifierIcon from '../public/assets/static/icons/magnifier_icon.svg'
 import MultiplePostsIcon from '../public/assets/static/icons/multiple_post_icon.svg'
 

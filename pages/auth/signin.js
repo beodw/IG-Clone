@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   getProviders,
   signIn as signIntoAuthProvider,
@@ -6,20 +6,30 @@ import {
 } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import GoogleSignInIcon from '../../public/assets/static/icons/google_sign_in_icon.svg'
 
 //client side render
 function signIn({ providers }) {
   const session = useSession()
   const router = useRouter()
   var authenticated = session.status == 'authenticated'
+  const [loginDetails, setLoginDetails] = useState({
+    userName: 'admin',
+    password: 'admin',
+  })
 
   authenticated && router.push('/')
   if (providers == null) return <></>
 
   function onChange(e) {
     let { name, value } = e.target
-    alert(name)
+    setLoginDetails({
+      ...loginDetails,
+      [name]: value,
+    })
   }
+
+  function login(e) {}
 
   return authenticated ? (
     <></>
@@ -39,36 +49,44 @@ function signIn({ providers }) {
           in any way!
         </h1>
         <input
+          value={loginDetails.userName}
           onChange={onChange}
-          name="username"
+          name="userName"
           placeholder="Username"
-          value={'admin'}
           className="mb-2 h-[36px] w-1/2 rounded-lg border-[0.5px] border-grey bg-grey p-4 outline-[0.5px] outline-textGrey"
         />
         <input
+          type={'password'}
+          value={loginDetails.password}
           onChange={onChange}
           name="password"
           placeholder="Password"
-          value={'admin'}
           className="mb-4 h-[36px] w-1/2 rounded-lg border-[0.5px] border-grey bg-grey p-4 outline-[0.5px] outline-textGrey"
         />
         <button
           className="w-1/2 rounded-md bg-teal p-4 font-bold text-white"
-          onClick={() => {}}
+          onClick={login}
         >
           Log In
         </button>
-        <div className="flex"></div>
-        OR
+        <div className="mt-4 flex w-1/2 items-center justify-between">
+          <div className="h-[1px] grow bg-grey"></div>
+          <div className="px-2">OR</div>
+          <div className="h-[1px] grow bg-grey"></div>
+        </div>
+
         {Object.values(providers).map((provider) => (
-          <button
-            className="w-1/2 rounded-md bg-teal p-4 font-bold text-white"
-            onClick={() => {
-              signIntoAuthProvider(provider.id, { callbackUrl: '/' })
-            }}
-          >
-            Sign In with {provider.name}
-          </button>
+          <div className="mt-2 flex items-center justify-center">
+            <button
+              className="flex items-center"
+              onClick={() => {
+                signIntoAuthProvider(provider.id, { callbackUrl: '/' })
+              }}
+            >
+              <GoogleSignInIcon />
+              Sign In
+            </button>
+          </div>
         ))}
       </div>
     </div>
