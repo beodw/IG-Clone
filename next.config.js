@@ -20,6 +20,7 @@ module.exports = {
       'cloudflare-ipfs.com',
       'loremflickr.com',
       'firebasestorage.googleapis.com',
+      'placekitten.com',
     ],
   },
 }

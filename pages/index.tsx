@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { AppBar, HomePage } from '../components/'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 
 import { ModalAtom, StoriesModalAtom } from '../atoms/atoms'
@@ -18,12 +18,16 @@ const Home: NextPage = () => {
   const [modalState, setModalState] = useRecoilState(ModalAtom)
   const [storiesModalState, setStoriesModalState] =
     useRecoilState(StoriesModalAtom)
+  const [userLoggedIn, setUserLoggedIn] = useState(
+    session.status == 'authenticated'
+  )
 
   useEffect(() => {
-    if (session.status == 'unauthenticated') router.push('auth/signin')
+    if (!userLoggedIn) router.push('auth/signin')
+    else setUserLoggedIn(true)
   }, [session.status])
 
-  return (
+  return userLoggedIn ? (
     <div className="relative flex h-screen flex-col overflow-clip">
       <Head>
         <title>Instagram Clone</title>
@@ -47,6 +51,8 @@ const Home: NextPage = () => {
         <SearchIcon />
       </button> */}
     </div>
+  ) : (
+    <></>
   )
 }
 
