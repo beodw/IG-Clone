@@ -7,6 +7,7 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import GoogleSignInIcon from '../../public/assets/static/icons/google_sign_in_icon.svg'
+import { signIn as testSignIn, signOut } from 'next-auth/react'
 
 //client side render
 function signIn({ providers }) {
@@ -65,7 +66,13 @@ function signIn({ providers }) {
         />
         <button
           className="w-1/2 rounded-md bg-teal p-4 font-bold text-white"
-          onClick={login}
+          onClick={() =>
+            signIntoAuthProvider('usernameAndPasswordAuth', {
+              userName: loginDetails.userName,
+              password: loginDetails.password,
+              callbackUrl: '/',
+            })
+          }
         >
           Log In
         </button>
@@ -75,19 +82,21 @@ function signIn({ providers }) {
           <div className="h-[1px] grow bg-grey"></div>
         </div>
 
-        {Object.values(providers).map((provider) => (
-          <div className="mt-2 flex items-center justify-center">
-            <button
-              className="flex items-center"
-              onClick={() => {
-                signIntoAuthProvider(provider.id, { callbackUrl: '/' })
-              }}
-            >
-              <GoogleSignInIcon />
-              Sign In
-            </button>
-          </div>
-        ))}
+        {Object.values(providers)
+          .filter((p) => p.name == 'Google')
+          .map((provider) => (
+            <div className="mt-2 flex items-center justify-center">
+              <button
+                className="flex items-center"
+                onClick={() => {
+                  signIntoAuthProvider(provider.id, { callbackUrl: '/' })
+                }}
+              >
+                <GoogleSignInIcon />
+                Sign In
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   )
