@@ -35,17 +35,16 @@ function signIn({ providers }) {
   return authenticated ? (
     <></>
   ) : (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="flex w-1/2 flex-col items-center justify-center">
-        <div className="relative -mt-24 h-48 w-48 shrink-0  text-center">
-          <Image
-            priority
-            objectFit="contain"
-            src="/assets/igLogo.svg"
-            layout="fill"
-          />
-        </div>
-        <h1 className="mb-4 text-xs italic">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center px-8">
+      <div className="flex w-full flex-col items-center md:w-1/2">
+        <Image
+          priority
+          objectFit="contain"
+          src="/assets/igLogo.svg"
+          width="168"
+          height="48"
+        />
+        <h1 className="mb-4 hidden text-xs italic sm:block">
           This is a clone project and is not intended to compete with instagram
           in any way!
         </h1>
@@ -54,7 +53,7 @@ function signIn({ providers }) {
           onChange={onChange}
           name="userName"
           placeholder="Username"
-          className="mb-2 h-[36px] w-1/2 rounded-lg border-[0.5px] border-grey bg-grey p-4 outline-[0.5px] outline-textGrey"
+          className="mt-8 mb-2 w-full rounded-lg bg-grey p-2 outline-textGrey"
         />
         <input
           type={'password'}
@@ -62,10 +61,11 @@ function signIn({ providers }) {
           onChange={onChange}
           name="password"
           placeholder="Password"
-          className="mb-4 h-[36px] w-1/2 rounded-lg border-[0.5px] border-grey bg-grey p-4 outline-[0.5px] outline-textGrey"
+          className="mb-4 w-full rounded-lg bg-grey p-2  outline-textGrey"
         />
+
         <button
-          className="w-1/2 rounded-md bg-teal p-4 font-bold text-white"
+          className="w-full rounded-md bg-teal p-4 font-bold text-white"
           onClick={() =>
             signIntoAuthProvider('usernameAndPasswordAuth', {
               userName: loginDetails.userName,
@@ -76,7 +76,8 @@ function signIn({ providers }) {
         >
           Log In
         </button>
-        <div className="mt-4 flex w-1/2 items-center justify-between">
+
+        <div className="mt-4 flex w-full items-center justify-between ">
           <div className="h-[1px] grow bg-grey"></div>
           <div className="px-2">OR</div>
           <div className="h-[1px] grow bg-grey"></div>

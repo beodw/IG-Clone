@@ -21,18 +21,17 @@ export default NextAuth({
       },
       async authorize(credentials) {
         const { userName, password } = credentials
-        // return { name: 'test', sub: '' }
-        return null
+        return { name: 'test', sub: '' }
       },
     }),
   ],
   pages: { signIn: '/auth/signin' },
   callbacks: {
     async session({ session, token, user }) {
-      console.log(session.user, user)
+      // console.log(session.user, user)
       session.user = {
         ...session.user,
-        uid: token.sub,
+        uid: token.sub ?? '1',
         username: session.user.name.replace(' ', '').toLocaleLowerCase(),
       }
       return session
