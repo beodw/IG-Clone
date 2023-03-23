@@ -7,12 +7,15 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import GoogleSignInIcon from '../../public/assets/static/icons/google_sign_in_icon.svg'
+import EyeIcon from '../../public/assets/static/icons/eye.png'
+import HiddenIcon from '../../public/assets/static/icons/hidden.png'
 import { signIn as testSignIn, signOut } from 'next-auth/react'
 
 //client side render
 function signIn({ providers }) {
   const session = useSession()
   const router = useRouter()
+  const [passwordIsHidden, setPasswordIsHidden] = useState(true)
   var authenticated = session.status == 'authenticated'
   const [loginDetails, setLoginDetails] = useState({
     userName: 'admin',
@@ -53,16 +56,30 @@ function signIn({ providers }) {
           onChange={onChange}
           name="userName"
           placeholder="Username"
-          className="mt-8 mb-2 w-full rounded-lg bg-grey p-2 outline-textGrey"
+          className="mt-8 mb-2 w-full rounded-lg bg-grey p-2 outline-none"
         />
-        <input
-          type={'password'}
-          value={loginDetails.password}
-          onChange={onChange}
-          name="password"
-          placeholder="Password"
-          className="mb-4 w-full rounded-lg bg-grey p-2  outline-textGrey"
-        />
+
+        <div className="mb-4 flex w-full items-center justify-between rounded-lg bg-grey p-2">
+          <input
+            type={passwordIsHidden ? 'password' : 'text'}
+            value={loginDetails.password}
+            onChange={onChange}
+            name="password"
+            placeholder="Password"
+            className="grow bg-transparent outline-none"
+          />
+
+          <div
+            className="h-[24px] w-[24px] hover:cursor-pointer"
+            onClick={() => setPasswordIsHidden(!passwordIsHidden)}
+          >
+            <Image
+              src={passwordIsHidden ? EyeIcon : HiddenIcon}
+              height={'24px'}
+              width={'24px'}
+            />
+          </div>
+        </div>
 
         <button
           className="w-full rounded-md bg-teal p-4 font-bold text-white"
