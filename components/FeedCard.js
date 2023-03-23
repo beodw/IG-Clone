@@ -110,6 +110,7 @@ function FeedCard(props) {
             // placeholder={props.fake ? 'empty' : `blur`}
             // blurDataURL={props.fake ? '' : props.post.imageUrl}
             layout="fill"
+            objectFit="cover"
           />
         ) : (
           <></>
